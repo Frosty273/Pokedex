@@ -4,5 +4,5 @@ const query = {
 }
 
 export async function fetchPokemon(pokemon) {
-    return fetch(`${url}/${query.pokemon}/${pokemon}`);
+    return fetch(`${url}/${query.pokemon}/${pokemon.toLowerCase()}`);
 }

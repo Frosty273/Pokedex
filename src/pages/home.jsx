@@ -1,6 +1,6 @@
 import React from 'react';
 import Search from '../components/search';
-import { fetchPokemon } from '../services/getPokemon';
+import { fetchPokemon } from '../utils/getPokemon';
 import PokemonData from '../components/pokemonData';
 import { Spinner, Alert } from 'react-bootstrap';
 
@@ -20,27 +20,38 @@ export default function HomePage() {
     const [pokemon, setPokemon] = React.useState('');
     const [loading, setLoading] = React.useState(false);
     const [error, setError] = React.useState(false);
+    const [errorMessage, setErrorMessage] = React.useState('');
 
     const getPokemon = async (query) => {
         if (!query) {
+            setErrorMessage('You must enter a Pokemon name')
             return setError(true);
         }
+        setError(false);
         setLoading(true);
         setTimeout(async () => {
-            const response = await fetchPokemon(query);
-            const results = await response.json();
-            console.log(results)
-            setPokemon(results);
-            setLoading(false);
-            setError(false)
+            try {
+                const response = await fetchPokemon(query);
+                const results = await response.json();
+                console.log(results)
+                setPokemon(results);
+                setLoading(false);
+                setError(false)
+            } catch (err) {
+                setLoading(false);
+                setError(true)
+                setErrorMessage('Pokemon not found')
+            }
+
         }, 1500);
+        console.log(pokemon)
     }
 
     return (
         <div>
             {error ? (
                 <Alert variant='danger'>
-                    You must enter a name.
+                    {errorMessage}
                 </Alert>
             ) : null}
             <Search getPokemon={getPokemon}/>
@@ -50,7 +61,14 @@ export default function HomePage() {
                     </div>
                   )  : null}
                 {!loading && pokemon ? (
-                    <PokemonData name={pokemon.name} sprite={pokemon.sprites.front_default} abilities={pokemon.abilities} stats={pokemon.stats} types={pokemon.types}/>
+                    <PokemonData name={pokemon.name} 
+                    sprite={pokemon.sprites.front_default} 
+                    spriteShiny={pokemon.sprites.front_shiny} 
+                    spriteBack={pokemon.sprites.back_default}
+                    spriteShinyBack={pokemon.sprites.back_shiny}
+                    abilities={pokemon.abilities} 
+                    stats={pokemon.stats} 
+                    types={pokemon.types}/>
                 ) : null}
         </div>
     )
