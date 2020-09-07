@@ -44,7 +44,6 @@ export default function HomePage() {
             }
 
         }, 1500);
-        console.log(pokemon)
     }
 
     return (
@@ -57,7 +56,7 @@ export default function HomePage() {
             <Search getPokemon={getPokemon}/>
                 {loading ? (
                     <div style={spinnerWrapperStyle}>
-                        <Spinner style = {spinnerStyle} animation="border"/>
+                        <Spinner style={spinnerStyle} animation="border"/>
                     </div>
                   )  : null}
                 {!loading && pokemon ? (
