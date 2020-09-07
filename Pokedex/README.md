@@ -18,11 +18,11 @@ This implementation is fully supported and tested on Windows 10.
 
 1. Clone the repo
 
-    `git clonehttps://github.com/Frosty273/PokedexApp.git`
+    `git clone https://github.com/Frosty273/PokedexApp.git`
 
 2. Change to the directory containing the repository
 
-    `cd pokedex-app`
+    `cd pokedexApp`
 
 3. Install the dependencies
 
