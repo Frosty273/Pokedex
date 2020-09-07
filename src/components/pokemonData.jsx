@@ -10,7 +10,7 @@ export default function PokemonData(props) {
                     <Card>
                         <Card.Header>
                             <h5>{props.name}</h5>
-                            <img src={props.sprite} alt={props.name}></img>
+                            <img src={props.sprite} alt={props.name}/>
                         </Card.Header>
                         <Card.Body>
                             <h5>Abilities</h5>
@@ -35,7 +35,7 @@ export default function PokemonData(props) {
                             {props.stats.map((stat,key) => (
                                 <div key={key}>
                                     <strong>{stat.stat.name}</strong>
-                                    <ProgressBar now={stat.base_stat} max={1000} label={stat.base_stat}></ProgressBar>
+                                    <ProgressBar now={stat.base_stat} max={1000} label={stat.base_stat}/>
                                 </div>
                             ))}
                         </Card.Body>

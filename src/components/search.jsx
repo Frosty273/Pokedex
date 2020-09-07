@@ -10,9 +10,7 @@ export default function Search(props) {
             <Form className="mt-2">
                 <Form.Row className="align-items-center">
                     <Col sm={10} className="my-1">
-                        <Form.Control placeholder="Search for Pokemon" onChange={(event) => setSearch(event.target.value)}>
-
-                        </Form.Control>
+                        <Form.Control placeholder="Search for Pokemon" onChange={(event) => setSearch(event.target.value)}/>
                     </Col>
                     <Col sm={2} className="my-1">
                         <Button block onClick={(event) => props.getPokemon(search)}>Search</Button>

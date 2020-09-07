@@ -50,7 +50,7 @@ export default function HomePage() {
                     </div>
                   )  : null}
                 {!loading && pokemon ? (
-                    <PokemonData name={pokemon.name} sprite={pokemon.sprites.front_default} abilities={pokemon.abilities} stats={pokemon.stats} types={pokemon.types}></PokemonData>
+                    <PokemonData name={pokemon.name} sprite={pokemon.sprites.front_default} abilities={pokemon.abilities} stats={pokemon.stats} types={pokemon.types}/>
                 ) : null}
         </div>
     )
