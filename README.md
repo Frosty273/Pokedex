@@ -24,7 +24,9 @@ This implementation is fully supported and tested on Windows 10.
 
     `cd PokedexApp`
     
-    `cd Pokedex` for version 1
+    `cd pokedex` for version 1
+    
+    `cd pokedex-v2` for version 2
 
 3. Install the dependencies
 
@@ -34,6 +36,10 @@ This implementation is fully supported and tested on Windows 10.
 
     `npm start`
 
-![GitHub Logo](/Figure1.PNG)
+![Version 1](/Figure1.PNG)
 Fig 1. Searching a Pokemon in version 1
+
+
+![Version 2](/Figure2.PNG)
+Fig 2. Searching a Pokemon in version 2
 
