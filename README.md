@@ -23,6 +23,7 @@ This implementation is fully supported and tested on Windows 10.
 2. Change to the directory containing the repository
 
     `cd PokedexApp`
+    
     `cd Pokedex` for version 1
 
 3. Install the dependencies
