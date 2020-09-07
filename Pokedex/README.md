@@ -32,5 +32,4 @@ This implementation is fully supported and tested on Windows 10.
 
     `npm start`
 
-![GitHub Logo](/Figure1.PNG)
-Searching a Pokemon
+![Website example](/Figure1.PNG)
