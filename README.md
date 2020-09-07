@@ -18,7 +18,7 @@ This implementation is fully supported and tested on Windows 10.
 
 1. Clone the repo
 
-    `git clone https://github.com/Matteas-Eden/roll-for-reaction`
+    `git clonehttps://github.com/Frosty273/PokedexApp.git`
 
 2. Change to the directory containing the repository
 
