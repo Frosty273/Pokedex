@@ -31,3 +31,6 @@ This implementation is fully supported and tested on Windows 10.
 4. Start the game locally
 
     `npm start`
+
+![GitHub Logo](/Figure1.PNG)
+Searching a Pokemon
