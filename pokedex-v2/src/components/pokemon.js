@@ -1,14 +1,24 @@
-import React from 'react';
-import mockData from '../mockData.js';
-import { Typography } from '@material-ui/core';
+import React, { useEffect } from 'react';
+import { Typography, CircularProgress, Button } from '@material-ui/core';
 import { capitaliseFirstLetter } from '../utils/capitaliseFirstLetter';
+import axios from 'axios';
 
 const Pokemon = (props) => {
 
-    const { match } = props;
+    const { match, history } = props;
     const { params } = match;
     const { pokemonId } = params;
-    const [pokemon, setPokemon] = React.useState(mockData[`${pokemonId}`]);
+    const [pokemon, setPokemon] = React.useState(undefined);
+
+    useEffect(() => {
+        axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`).then(function (response) {
+            const { data } = response;
+            setPokemon(data);
+        })
+        .catch(function (error) {
+            setPokemon(false);
+        })
+    }, [pokemonId]);
 
     const generatePokemonJSX = () => {
         const { name, id, height, weight, types, sprites } = pokemon;
@@ -17,9 +27,9 @@ const Pokemon = (props) => {
         return (
             <div>
             <Typography variant="h1">
-                {`${id}.`} {capitaliseFirstLetter(name)} <img src={front_default}/>
+                {`${id}.`} {capitaliseFirstLetter(name)} <img src={front_default} alt="Front Pokemon sprite"/>
             </Typography>
-            <img style={{ width: "300px", height: "300px"}} src={imageUrl} />
+            <img style={{ width: "300px", height: "300px"}} src={imageUrl} alt="Pokemon"/>
             <Typography variant="h3">
                 Pokemon Info
             </Typography>
@@ -43,7 +53,14 @@ const Pokemon = (props) => {
 
     return (
         <div>
-            {generatePokemonJSX()}
+            {pokemon === undefined && <CircularProgress />}
+            {!!pokemon !== undefined && pokemon && generatePokemonJSX()}
+            {pokemon === false && <Typography>Pokemon not found</Typography>}
+            {pokemon !== undefined && (
+                <Button variant="contained" onClick={() => history.push("/")}>
+                    Back to Pokedex
+                </Button>
+            )}
         </div>
         
     )
