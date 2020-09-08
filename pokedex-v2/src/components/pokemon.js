@@ -1,6 +1,11 @@
-import React from 'react'l
+import React from 'react';
 
-const Pokemon = () => {
+const Pokemon = (props) => {
+
+    const { match } = props;
+    const { params } = match;
+    const { pokemonId } = params;
+
     return (
         <div>
             Pokemon page
