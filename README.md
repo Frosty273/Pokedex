@@ -43,3 +43,7 @@ Fig 1. Searching a Pokemon in version 1
 ![Version 2](/Figure2.PNG)
 Fig 2. Searching a Pokemon in version 2
 
+## API Note
+
+The api as of 08/09/2020 doesn't currently contain any reference to the pokemon sprite from geneeration 8 onwards (Pokemon number 808 and onwards) so all placeholder sprite are left blank. This is a feature, not a bug.
+
