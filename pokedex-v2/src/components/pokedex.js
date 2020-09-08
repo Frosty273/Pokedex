@@ -5,7 +5,6 @@ import { capitaliseFirstLetter } from '../utils/capitaliseFirstLetter';
 import axios from 'axios';
 import SearchIcon from '@material-ui/icons/Search';
 
-
 const useStyles = makeStyles(theme => ({
     pokedexContainer: {
         paddingTop: '20px',
@@ -83,8 +82,7 @@ const Pokedex = (props) => {
         const { id, name, sprite } = pokemonData[pokemonId];
 
         return (
-            // <Grid item xs={12} sm={4} key={pokemonId}>
-            <Grid item xs={4} key={pokemonId}>
+            <Grid item xs={12} sm={3} key={pokemonId}>
                 <Card onClick = {() => history.push(`/${pokemonId}`)}>
                     <CardMedia
                         className={classes.cardMedia}
@@ -103,7 +101,7 @@ const Pokedex = (props) => {
 
     return (
         <ThemeProvider theme={theme}>
-            <Paper style={{ height: "100vh" }}>
+            <Paper style={{ height: "100%" }}>
                 <div>
                     <AppBar position="static">
                         <Toolbar>

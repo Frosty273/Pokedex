@@ -7,6 +7,7 @@ import { Container, Row, Col, Card, ProgressBar } from 'react-bootstrap';
 import { displayStat } from '../utils/displayStat'; 
 import { determineAbility } from '../utils/determineAbility'; 
 
+
 const useStyles = makeStyles(() => ({
     spinnerStyle: {
         width: '10rem',
@@ -78,6 +79,7 @@ const Pokemon = (props) => {
     // }
 
     const generatePokemonData = () => {
+        console.log(pokemon)
         const { name, id, height, weight, types, sprites, abilities, stats } = pokemon;
         const { front_default, front_shiny, back_default, back_shiny } = sprites;
         
@@ -87,7 +89,7 @@ const Pokemon = (props) => {
                 <Col xs={12} md={6}>
                     <Card>
                         <Card.Header>
-                            <h5>{capitaliseFirstLetter(name)}</h5>
+                            <h3>{capitaliseFirstLetter(name)}</h3>
                             <img src={front_default} alt={name}/>
                             <img src={front_shiny} alt={name}/>
                             <img src={back_default} alt={name}/>
