@@ -5,6 +5,7 @@ import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
 import { Container, Row, Col, Card, ProgressBar } from 'react-bootstrap';
 import { displayStat } from '../utils/displayStat'; 
+import { determineAbility } from '../utils/determineAbility'; 
 
 const useStyles = makeStyles(() => ({
     spinnerStyle: {
@@ -96,7 +97,7 @@ const Pokemon = (props) => {
                             <h5>Abilities</h5>
                             {abilities.map((ability, key) => (
                                 <div key={key}>
-                                    <span>{capitaliseFirstLetter(ability.ability.name)}</span>
+                                    <span>{determineAbility(ability.ability.name, key, abilities.length)}</span>
                                 </div>
                             ))}
                             <br/>
