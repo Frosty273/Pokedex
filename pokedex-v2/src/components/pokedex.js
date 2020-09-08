@@ -62,7 +62,6 @@ const Pokedex = (props) => {
     }, []);
 
     const getPokemonCard = (pokemonId) => {
-        console.log(pokemonData[`${pokemonId}`]);
         const { id, name, sprite } = pokemonData[pokemonId];
 
         return (
