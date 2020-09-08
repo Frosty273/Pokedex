@@ -15,6 +15,10 @@ const useStyles = makeStyles(() => ({
     spinnerWrapperStyle: {
         textAlign: 'center',
         marginTop: '50px',
+    },
+    returnToPokedex: {
+        align: 'flex',
+        marginBottom: '10px',
     }
 }))
 
@@ -36,46 +40,45 @@ const Pokemon = (props) => {
         })
     }, [pokemonId]);
 
-    const generatePokemonJSX = () => {
-        console.log(pokemon);
-        const { name, id, height, weight, types, sprites } = pokemon;
-        const imageUrl = `https://pokeres.bastionbot.org/images/pokemon/${id}.png`;
-        const { front_default, front_shiny, back_default, back_shiny } = sprites;
-        return (
-            <div>
-            <Typography variant="h1">
-                {`${id}.`} {capitaliseFirstLetter(name)} 
-                <img src={front_default} alt="Front Pokemon sprite"/>
-                <img src={front_shiny} alt="Front Pokemon sprite"/>
-                <img src={back_default} alt="Front Pokemon sprite"/>
-                <img src={back_shiny} alt="Front Pokemon sprite"/>
-            </Typography>
-            <img style={{ width: "300px", height: "300px"}} src={imageUrl} alt="Pokemon"/>
-            <Typography variant="h3">
-                Pokemon Info
-            </Typography>
-            <Typography>
-                Height: {height}
-            </Typography>
-            <Typography>
-                Weight: {weight}
-            </Typography>
-            <Typography variant="h6">
-                Types
-            </Typography>
-            {types.map((typeInfo) => {
-                const { type } = typeInfo;
-                const { name } = type;
-            return <Typography key={name}> {`${capitaliseFirstLetter(name)}`}</Typography>
-            })}
-            </div>
-        )
-    }
+    // const generatePokemonJSX = () => {
+    //     console.log(pokemon);
+    //     const { name, id, height, weight, types, sprites } = pokemon;
+    //     const imageUrl = `https://pokeres.bastionbot.org/images/pokemon/${id}.png`;
+    //     const { front_default, front_shiny, back_default, back_shiny } = sprites;
+    //     return (
+    //         <div>
+    //         <Typography variant="h1">
+    //             {`${id}.`} {capitaliseFirstLetter(name)} 
+    //             <img src={front_default} alt="Front Pokemon sprite"/>
+    //             <img src={front_shiny} alt="Front Pokemon sprite"/>
+    //             <img src={back_default} alt="Front Pokemon sprite"/>
+    //             <img src={back_shiny} alt="Front Pokemon sprite"/>
+    //         </Typography>
+    //         <img style={{ width: "300px", height: "300px"}} src={imageUrl} alt="Pokemon"/>
+    //         <Typography variant="h3">
+    //             Pokemon Info
+    //         </Typography>
+    //         <Typography>
+    //             Height: {height}
+    //         </Typography>
+    //         <Typography>
+    //             Weight: {weight}
+    //         </Typography>
+    //         <Typography variant="h6">
+    //             Types
+    //         </Typography>
+    //         {types.map((typeInfo) => {
+    //             const { type } = typeInfo;
+    //             const { name } = type;
+    //         return <Typography key={name}> {`${capitaliseFirstLetter(name)}`}</Typography>
+    //         })}
+    //         </div>
+    //     )
+    // }
 
     const generatePokemonData = () => {
         const { name, id, height, weight, types, sprites, abilities, stats } = pokemon;
         const { front_default, front_shiny, back_default, back_shiny } = sprites;
-        console.log(stats)
         
         return (
             <Container className="mt=2">
@@ -127,14 +130,15 @@ const Pokemon = (props) => {
 
     return (
         <div>
-            {pokemon === undefined && <CircularProgress/>}
-            {!!pokemon !== undefined && pokemon && generatePokemonData()}
-            {pokemon === false && <Typography>Pokemon not found</Typography>}
             {pokemon !== undefined && (
-                <Button variant="contained" onClick={() => history.push("/")}>
+                <Button className={classes.returnToPokedex} variant="contained" onClick={() => history.push("/")}>
                     Back to Pokedex
                 </Button>
             )}
+            {pokemon === undefined && <CircularProgress/>}
+            {!!pokemon !== undefined && pokemon && generatePokemonData()}
+            {pokemon === false && <Typography>Pokemon not found</Typography>}
+
         </div>
         
     )

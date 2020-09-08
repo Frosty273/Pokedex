@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
-import { AppBar, Toolbar, Grid, Card, CardContent, CircularProgress, CardMedia, Typography, TextField } from '@material-ui/core';
-import { makeStyles, fade } from '@material-ui/core/styles';
+import { AppBar, Toolbar, Grid, Card, CardContent, CircularProgress, CardMedia, Typography, TextField, Paper, Switch } from '@material-ui/core';
+import { makeStyles, fade, ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { capitaliseFirstLetter } from '../utils/capitaliseFirstLetter';
 import axios from 'axios';
 import SearchIcon from '@material-ui/icons/Search';
+
 
 const useStyles = makeStyles(theme => ({
     pokedexContainer: {
@@ -33,6 +34,16 @@ const useStyles = makeStyles(theme => ({
         width: '200px',
         margin: '5px',
     }, 
+    themeToggleContainer: {
+        align: 'center',
+    },
+    darkModeToggle: {
+        display: 'flex',
+    },
+    darkModeToggleText: {
+        align: 'center',
+        color: 'black',
+    }
 }));
 
 const Pokedex = (props) => {
@@ -40,10 +51,17 @@ const Pokedex = (props) => {
     const classes = useStyles();
     const [pokemonData, setPokemonData] = React.useState({});
     const [filter, setFilter] = React.useState('');
+    const [darkMode, setDarkMode]= React.useState(false);
 
     const handleSearchChange = (event) => {
         setFilter(event.target.value);
     }
+
+    const theme = createMuiTheme({
+        palette: {
+            type: darkMode ? "dark" : "light",
+        },
+    })
 
     useEffect(() => {
         axios.get(`https://pokeapi.co/api/v2/pokemon?limit=896`).then(function (response) {
@@ -84,24 +102,31 @@ const Pokedex = (props) => {
     }
 
     return (
-        <div>
-            <AppBar position="static">
-                <Toolbar>
-                    <div className={classes.searchContainer}>
-                        <SearchIcon className={classes.searchIcon}/>
-                        <TextField className={classes.searchInput} label="Pokemon" variant="standard" onChange={handleSearchChange} />
-                    </div>
-                </Toolbar>
-            </AppBar>
-            {pokemonData ? (
-                <Grid container spacing={2} className={classes.pokedexContainer}>
-                    {Object.keys(pokemonData).map((pokemonId) => pokemonData[pokemonId].name.includes(filter) && getPokemonCard(pokemonId))}
-                </Grid>
-            ) : (
-                <CircularProgress/>
-            )}
-
-        </div>
+        <ThemeProvider theme={theme}>
+            <Paper style={{ height: "100vh" }}>
+                <div>
+                    <AppBar position="static">
+                        <Toolbar>
+                            <div className={classes.searchContainer}>
+                                <SearchIcon className={classes.searchIcon}/>
+                                <TextField className={classes.searchInput} label="Pokemon" variant="standard" onChange={handleSearchChange} />    
+                            </div>
+                            <div className={classes.themeToggleContainer}>
+                                <Switch className={classes.darkModeToggle} checked={darkMode} onChange={() => setDarkMode(!darkMode)} />
+                                <Typography className={classes.darkModeToggleText}>Toggle theme</Typography>
+                            </div>
+                        </Toolbar>
+                    </AppBar>
+                    {pokemonData ? (
+                        <Grid container spacing={2} className={classes.pokedexContainer}>
+                            {Object.keys(pokemonData).map((pokemonId) => pokemonData[pokemonId].name.includes(filter) && getPokemonCard(pokemonId))}
+                        </Grid>
+                    ) : (
+                        <CircularProgress/>
+                    )}
+                </div>
+            </Paper>
+        </ThemeProvider>
     )
 }
 
