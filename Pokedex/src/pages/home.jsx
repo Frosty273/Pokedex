@@ -33,7 +33,6 @@ export default function HomePage() {
             try {
                 const response = await fetchPokemon(query);
                 const results = await response.json();
-                console.log(results)
                 setPokemon(results);
                 setLoading(false);
                 setError(false)

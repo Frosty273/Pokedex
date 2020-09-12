@@ -6,6 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Container, Row, Col, Card, ProgressBar } from 'react-bootstrap';
 import { displayStat } from '../utils/displayStat'; 
 import { determineAbility } from '../utils/determineAbility'; 
+import { filterMoveType } from '../utils/filterMoveType'; 
 
 
 const useStyles = makeStyles(() => ({
@@ -42,45 +43,10 @@ const Pokemon = (props) => {
         })
     }, [pokemonId]);
 
-    // const generatePokemonJSX = () => {
-    //     console.log(pokemon);
-    //     const { name, id, height, weight, types, sprites } = pokemon;
-    //     const imageUrl = `https://pokeres.bastionbot.org/images/pokemon/${id}.png`;
-    //     const { front_default, front_shiny, back_default, back_shiny } = sprites;
-    //     return (
-    //         <div>
-    //         <Typography variant="h1">
-    //             {`${id}.`} {capitaliseFirstLetter(name)} 
-    //             <img src={front_default} alt="Front Pokemon sprite"/>
-    //             <img src={front_shiny} alt="Front Pokemon sprite"/>
-    //             <img src={back_default} alt="Front Pokemon sprite"/>
-    //             <img src={back_shiny} alt="Front Pokemon sprite"/>
-    //         </Typography>
-    //         <img style={{ width: "300px", height: "300px"}} src={imageUrl} alt="Pokemon"/>
-    //         <Typography variant="h3">
-    //             Pokemon Info
-    //         </Typography>
-    //         <Typography>
-    //             Height: {height}
-    //         </Typography>
-    //         <Typography>
-    //             Weight: {weight}
-    //         </Typography>
-    //         <Typography variant="h6">
-    //             Types
-    //         </Typography>
-    //         {types.map((typeInfo) => {
-    //             const { type } = typeInfo;
-    //             const { name } = type;
-    //         return <Typography key={name}> {`${capitaliseFirstLetter(name)}`}</Typography>
-    //         })}
-    //         </div>
-    //     )
-    // }
-
     const generatePokemonData = () => {
         console.log(pokemon)
-        const { name, id, height, weight, types, sprites, abilities, stats } = pokemon;
+        // const { name, id, height, weight, types, sprites, abilities, stats, moves } = pokemon;
+        const { name, height, weight, types, sprites, abilities, stats, moves } = pokemon;
         const { front_default, front_shiny, back_default, back_shiny } = sprites;
         
         return (
@@ -103,12 +69,18 @@ const Pokemon = (props) => {
                                 </div>
                             ))}
                             <br/>
-                            <h5>Types</h5>
+                            <h5>Type(s)</h5>
                             {types.map((type, key) => (
                                 <div key={key}>
                                     <span>{capitaliseFirstLetter(type.type.name)}</span>
                                 </div>
                             ))}
+                            <br/>
+                            <h5>Height</h5>
+                            {height}
+                            <br/>
+                            <h5>Weight</h5>
+                            {weight}
                         </Card.Body>
                     </Card>
                 </Col>
@@ -123,6 +95,53 @@ const Pokemon = (props) => {
                                     {/* Max is 255 because it is the highest stat across all Pokemon */}
                                 </div>
                             ))}
+                        </Card.Body>
+                    </Card>
+                </Col>
+            </Row>
+            <Row>
+                <Col xs={12} md={4}>
+                    <Card>
+                        <Card.Header>
+                            <h3>Learnset</h3>
+                        </Card.Header>
+                        <Card.Body>
+                        <h4>Level Up</h4>
+                            {moves.map((move, key) => (
+                                <div key={key}>
+                                    <h6>{filterMoveType(capitaliseFirstLetter(move.move.name), move.version_group_details, "level-up")}</h6>
+                                </div>
+                            ))};
+                        </Card.Body>
+                    </Card>
+                </Col>
+                <Col xs={12} md={4}>
+                    <Card>
+                        <Card.Body>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <h4>Technical Machine</h4>
+                            {moves.map((move, key) => (
+                                <div key={key}>
+                                    <h6>{filterMoveType(capitaliseFirstLetter(move.move.name), move.version_group_details, "machine")}</h6>
+                                </div>
+                            ))};
+                        </Card.Body>
+                    </Card>
+                </Col>
+                <Col xs={12} md={4}>
+                    <Card>
+                        <Card.Body>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <h4>Egg Moves</h4>
+                            {moves.map((move, key) => (
+                                <div key={key}>
+                                    <h6>{filterMoveType(capitaliseFirstLetter(move.move.name), move.version_group_details, "egg")}</h6>
+                                </div>
+                            ))};
                         </Card.Body>
                     </Card>
                 </Col>
