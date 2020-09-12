@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { AppBar, Toolbar, Grid, Card, CardContent, CircularProgress, CardMedia, Typography, TextField, Paper, Switch } from '@material-ui/core';
 import { makeStyles, fade, ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import { capitaliseFirstLetter } from '../utils/capitaliseFirstLetter';
 import axios from 'axios';
 import SearchIcon from '@material-ui/icons/Search';
+import { capitaliseName } from '../utils/capitaliseName';
 
 const useStyles = makeStyles(theme => ({
     pokedexContainer: {
@@ -91,7 +91,7 @@ const Pokedex = (props) => {
                     />
                     <CardContent className = {classes.cardContent}>
                         <Typography>
-                            {`${id}. ${capitaliseFirstLetter(name)}`}
+                            {`${id}. ${capitaliseName(name)}`}
                         </Typography>
                     </CardContent>
                 </Card>

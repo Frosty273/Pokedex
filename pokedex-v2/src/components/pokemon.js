@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { Typography, CircularProgress, Button } from '@material-ui/core';
-import { capitaliseFirstLetter } from '../utils/capitaliseFirstLetter';
 import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
 import { Container, Row, Col, Card, ProgressBar } from 'react-bootstrap';
 import { displayStat } from '../utils/displayStat'; 
 import { determineAbility } from '../utils/determineAbility'; 
 import { filterMoveType } from '../utils/filterMoveType'; 
+import { capitaliseName } from '../utils/capitaliseName';
 
 
 const useStyles = makeStyles(() => ({
@@ -44,10 +44,29 @@ const Pokemon = (props) => {
     }, [pokemonId]);
 
     const generatePokemonData = () => {
-        console.log(pokemon)
         // const { name, id, height, weight, types, sprites, abilities, stats, moves } = pokemon;
         const { name, height, weight, types, sprites, abilities, stats, moves } = pokemon;
         const { front_default, front_shiny, back_default, back_shiny } = sprites;
+
+        let move_learn_level = {}
+        let moveset = moves.map(move => {
+            move.version_group_details.map(move_level => {
+                // console.log(move_level.move_learn_method)
+                if (move_level.move_learn_method.name === "level-up") {
+                    move_learn_level[move.move.name] = move_level.level_learned_at
+                }
+            })
+        })
+        // filterMoveType(capitaliseName(move.move.name), move.version_group_details, "level-up"
+        let items = Object.keys(move_learn_level).map(function(key) {
+            return [key, move_learn_level[key]];
+          });
+          
+          // Sort the array based on the second element
+          items.sort(function(first, second) {
+            return first[1] - second[1];
+          });
+        console.log(items)
         
         return (
             <Container className="mt=2">
@@ -55,7 +74,7 @@ const Pokemon = (props) => {
                 <Col xs={12} md={6}>
                     <Card>
                         <Card.Header>
-                            <h3>{capitaliseFirstLetter(name)}</h3>
+                            <h3>{capitaliseName(name)}</h3>
                             <img src={front_default} alt={name}/>
                             <img src={front_shiny} alt={name}/>
                             <img src={back_default} alt={name}/>
@@ -65,22 +84,24 @@ const Pokemon = (props) => {
                             <h5>Abilities</h5>
                             {abilities.map((ability, key) => (
                                 <div key={key}>
-                                    <span>{determineAbility(ability.ability.name, key, abilities.length)}</span>
+                                    <span>{determineAbility(capitaliseName(ability.ability.name), key, abilities.length)}</span>
                                 </div>
                             ))}
                             <br/>
                             <h5>Type(s)</h5>
                             {types.map((type, key) => (
                                 <div key={key}>
-                                    <span>{capitaliseFirstLetter(type.type.name)}</span>
+                                    <span>{capitaliseName(type.type.name)}</span>
                                 </div>
                             ))}
                             <br/>
                             <h5>Height</h5>
-                            {height}
+                            {height/10} m
+                            {/* 7 = 71.1cm */}
+                            {/* 5 = 50.8cm */}
                             <br/>
                             <h5>Weight</h5>
-                            {weight}
+                            {weight/10} kg
                         </Card.Body>
                     </Card>
                 </Col>
@@ -107,9 +128,14 @@ const Pokemon = (props) => {
                         </Card.Header>
                         <Card.Body>
                         <h4>Level Up</h4>
-                            {moves.map((move, key) => (
+                            {/* {moves.map((move, key) => (
                                 <div key={key}>
-                                    <h6>{filterMoveType(capitaliseFirstLetter(move.move.name), move.version_group_details, "level-up")}</h6>
+                                    <h6>{filterMoveType(capitaliseName(move.move.name), move.version_group_details, "level-up")}</h6>
+                                </div>
+                            ))}; */}
+                            {items.map((move, key) => (
+                                <div key={key}>
+                                    <h6>{"Lv " + move[1] + ": " + capitaliseName(move[0])}</h6>
                                 </div>
                             ))};
                         </Card.Body>
@@ -124,7 +150,7 @@ const Pokemon = (props) => {
                         <h4>Technical Machine</h4>
                             {moves.map((move, key) => (
                                 <div key={key}>
-                                    <h6>{filterMoveType(capitaliseFirstLetter(move.move.name), move.version_group_details, "machine")}</h6>
+                                    <h6>{filterMoveType(capitaliseName(move.move.name), move.version_group_details, "machine")}</h6>
                                 </div>
                             ))};
                         </Card.Body>
@@ -139,7 +165,7 @@ const Pokemon = (props) => {
                         <h4>Egg Moves</h4>
                             {moves.map((move, key) => (
                                 <div key={key}>
-                                    <h6>{filterMoveType(capitaliseFirstLetter(move.move.name), move.version_group_details, "egg")}</h6>
+                                    <h6>{filterMoveType(capitaliseName(move.move.name), move.version_group_details, "egg")}</h6>
                                 </div>
                             ))};
                         </Card.Body>
