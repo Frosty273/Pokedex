@@ -43,6 +43,11 @@ const Pokemon = (props) => {
         })
     }, [pokemonId]);
 
+    const nextPreviousPokemon = (num) => {
+        const { id } = pokemon;
+        return id + num
+    }
+
     const generatePokemonData = () => {
         // const { name, id, height, weight, types, sprites, abilities, stats, moves } = pokemon;
         const { name, height, weight, types, sprites, abilities, stats, moves } = pokemon;
@@ -57,6 +62,7 @@ const Pokemon = (props) => {
                 }
             })
         })
+        console.log(moveset)
         // filterMoveType(capitaliseName(move.move.name), move.version_group_details, "level-up"
         let items = Object.keys(move_learn_level).map(function(key) {
             return [key, move_learn_level[key]];
@@ -120,14 +126,14 @@ const Pokemon = (props) => {
                     </Card>
                 </Col>
             </Row>
+            <br/>
             <Row>
                 <Col xs={12} md={4}>
                     <Card>
                         <Card.Header>
-                            <h3>Learnset</h3>
+                            <h4>Level Up</h4>
                         </Card.Header>
                         <Card.Body>
-                        <h4>Level Up</h4>
                             {/* {moves.map((move, key) => (
                                 <div key={key}>
                                     <h6>{filterMoveType(capitaliseName(move.move.name), move.version_group_details, "level-up")}</h6>
@@ -137,37 +143,35 @@ const Pokemon = (props) => {
                                 <div key={key}>
                                     <h6>{"Lv " + move[1] + ": " + capitaliseName(move[0])}</h6>
                                 </div>
-                            ))};
+                            ))}
                         </Card.Body>
                     </Card>
                 </Col>
                 <Col xs={12} md={4}>
                     <Card>
+                        <Card.Header>
+                            <h4>Technical Machine</h4>
+                        </Card.Header>
                         <Card.Body>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <h4>Technical Machine</h4>
                             {moves.map((move, key) => (
                                 <div key={key}>
                                     <h6>{filterMoveType(capitaliseName(move.move.name), move.version_group_details, "machine")}</h6>
                                 </div>
-                            ))};
+                            ))}
                         </Card.Body>
                     </Card>
                 </Col>
                 <Col xs={12} md={4}>
                     <Card>
+                        <Card.Header>
+                            <h4>Egg Moves</h4>
+                        </Card.Header>
                         <Card.Body>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <h4>Egg Moves</h4>
                             {moves.map((move, key) => (
                                 <div key={key}>
                                     <h6>{filterMoveType(capitaliseName(move.move.name), move.version_group_details, "egg")}</h6>
                                 </div>
-                            ))};
+                            ))}
                         </Card.Body>
                     </Card>
                 </Col>
@@ -179,8 +183,18 @@ const Pokemon = (props) => {
     return (
         <div>
             {pokemon !== undefined && (
-                <Button className={classes.returnToPokedex} variant="contained" onClick={() => history.push("/")}>
+                <Button variant="primary" onClick={() => history.push("/" + nextPreviousPokemon(-1))}>
+                    Previous Pokemon
+                </Button>
+            )}
+            {pokemon !== undefined && (
+                <Button variant="primary" onClick={() => history.push("/")}>
                     Back to Pokedex
+                </Button>
+            )}
+            {pokemon !== undefined && (
+                <Button variant="primary" onClick={() => history.push("/" + nextPreviousPokemon(1))}>
+                    Next Pokemon
                 </Button>
             )}
             {pokemon === undefined && <CircularProgress/>}
