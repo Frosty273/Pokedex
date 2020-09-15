@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Typography, CircularProgress, Button } from '@material-ui/core';
+import { Typography, CircularProgress, Button, Badge } from '@material-ui/core';
 import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
 import { Container, Row, Col, Card, ProgressBar } from 'react-bootstrap';
@@ -7,6 +7,7 @@ import { displayStat } from '../utils/displayStat';
 import { determineAbility } from '../utils/determineAbility'; 
 import { filterMoveType } from '../utils/filterMoveType'; 
 import { capitaliseName } from '../utils/capitaliseName';
+import styled from 'styled-components';
 
 
 const useStyles = makeStyles(() => ({
@@ -22,8 +23,41 @@ const useStyles = makeStyles(() => ({
     returnToPokedex: {
         align: 'flex',
         marginBottom: '10px',
+        marginRight: '50px',
+        backgroundColor: '#3F51F5',
+        color: 'white',
+        "&:hover": {
+            backgroundColor: "#3F51F5",
+        }
+    },
+    types: {
+        backgroundColor: 'lightblue',
+        borderRadius: '50%',
+        paddingRight: '10px',
+        paddingLeft: '10px',
+        width: '80px',
     }
 }))
+
+// Background then Border
+// Normal A8A878 6D6D4E
+// Fire F08030 9C531F
+// Fighting C03028 7D1F1A
+// Water 6890F0 445E9C
+// Flying A890F0 6D5E9C 
+// Grass 78C850 4E8234
+// Poison A040A0 682A68
+// Electric F8D030 A1871F
+// Ground E0C068 927D44
+// Psychic F85888 A13959
+// Rock B8A038 786824
+// Ice 98D8D8 638D8D
+// Bug  A8B820 6D7815
+// Dragon 7038F8 4924A1
+// Ghost 705898 493963 
+// Dark 705848 49392F
+// Steel B8B8D0 787887
+// Fairy EE99AC 9B6470
 
 const Pokemon = (props) => {
 
@@ -32,6 +66,10 @@ const Pokemon = (props) => {
     const { pokemonId } = params;
     const [pokemon, setPokemon] = React.useState(undefined);
     const classes = useStyles();
+
+    const Badge = styled.div`
+        background: ${props => props.inputType === "normal" ? "#A8A878" : props.inputType === "fire" ? "#F08030" : props.inputType === "fighting" ? "#C03028" : "white"};
+    `;
 
     useEffect(() => {
         axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`).then(function (response) {
@@ -54,16 +92,14 @@ const Pokemon = (props) => {
         const { front_default, front_shiny, back_default, back_shiny } = sprites;
 
         let move_learn_level = {}
-        let moveset = moves.map(move => {
-            move.version_group_details.map(move_level => {
-                // console.log(move_level.move_learn_method)
+        moves.forEach(move => {
+            move.version_group_details.forEach(move_level => {
                 if (move_level.move_learn_method.name === "level-up") {
                     move_learn_level[move.move.name] = move_level.level_learned_at
                 }
             })
         })
-        console.log(moveset)
-        // filterMoveType(capitaliseName(move.move.name), move.version_group_details, "level-up"
+
         let items = Object.keys(move_learn_level).map(function(key) {
             return [key, move_learn_level[key]];
           });
@@ -72,8 +108,9 @@ const Pokemon = (props) => {
           items.sort(function(first, second) {
             return first[1] - second[1];
           });
-        console.log(items)
         
+          console.log(types[0].type.name)
+
         return (
             <Container className="mt=2">
             <Row>
@@ -97,14 +134,12 @@ const Pokemon = (props) => {
                             <h5>Type(s)</h5>
                             {types.map((type, key) => (
                                 <div key={key}>
-                                    <span>{capitaliseName(type.type.name)}</span>
+                                    <Badge className={classes.types} inputType={type.type.name}>{capitaliseName(type.type.name)}</Badge>
                                 </div>
                             ))}
                             <br/>
                             <h5>Height</h5>
                             {height/10} m
-                            {/* 7 = 71.1cm */}
-                            {/* 5 = 50.8cm */}
                             <br/>
                             <h5>Weight</h5>
                             {weight/10} kg
@@ -134,11 +169,6 @@ const Pokemon = (props) => {
                             <h4>Level Up</h4>
                         </Card.Header>
                         <Card.Body>
-                            {/* {moves.map((move, key) => (
-                                <div key={key}>
-                                    <h6>{filterMoveType(capitaliseName(move.move.name), move.version_group_details, "level-up")}</h6>
-                                </div>
-                            ))}; */}
                             {items.map((move, key) => (
                                 <div key={key}>
                                     <h6>{"Lv " + move[1] + ": " + capitaliseName(move[0])}</h6>
@@ -182,25 +212,26 @@ const Pokemon = (props) => {
 
     return (
         <div>
+            <center>
             {pokemon !== undefined && (
-                <Button variant="primary" onClick={() => history.push("/" + nextPreviousPokemon(-1))}>
+                <Button className={classes.returnToPokedex} onClick={() => history.push("/" + nextPreviousPokemon(-1))}>
                     Previous Pokemon
                 </Button>
             )}
             {pokemon !== undefined && (
-                <Button variant="primary" onClick={() => history.push("/")}>
+                <Button className={classes.returnToPokedex} onClick={() => history.push("/")}>
                     Back to Pokedex
                 </Button>
             )}
             {pokemon !== undefined && (
-                <Button variant="primary" onClick={() => history.push("/" + nextPreviousPokemon(1))}>
+                <Button className={classes.returnToPokedex} onClick={() => history.push("/" + nextPreviousPokemon(1))}>
                     Next Pokemon
                 </Button>
             )}
+            </center>
             {pokemon === undefined && <CircularProgress/>}
             {!!pokemon !== undefined && pokemon && generatePokemonData()}
             {pokemon === false && <Typography>Pokemon not found</Typography>}
-
         </div>
         
     )
