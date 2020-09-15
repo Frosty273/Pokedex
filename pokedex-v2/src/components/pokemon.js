@@ -8,6 +8,7 @@ import { determineAbility } from "../utils/determineAbility";
 import { filterMoveType } from "../utils/filterMoveType";
 import { capitaliseName } from "../utils/capitaliseName";
 import styled from "styled-components";
+import { propTypes } from "react-bootstrap/esm/Image";
 
 const useStyles = makeStyles(() => ({
   spinnerStyle: {
@@ -67,80 +68,87 @@ const Pokemon = (props) => {
   const [pokemon, setPokemon] = React.useState(undefined);
   const classes = useStyles();
 
+  const typeColours = {
+      "normal" : {
+          "background" : "#A8A878",
+          "border-color" : "#6D6D4E"
+      },
+      "fire" : {
+        "background" : "#F08030",
+        "border-color" : "#9C531F"
+    },
+      "fighting" : {
+        "background" : "#C03028",
+        "border-color" : "#7D1F1A"
+    },
+      "water" : {
+        "background" : "#6890F0",
+        "border-color" : "#445E9C"
+    },
+      "flying" : {
+        "background" : "#A890F0",
+        "border-color" : "#6D5E9C"
+    },
+      "grass" : {
+        "background" : "#78C850",
+        "border-color" : "#4E8234"
+    },
+      "poison" : {
+        "background" : "#A040A0",
+        "border-color" : "#682A68"
+    },
+      "electric" : {
+        "background" : "#F8D030",
+        "border-color" : "#A1871F"
+    },
+      "ground" : {
+        "background" : "#E0C068",
+        "border-color" : "#927D44"
+    },
+      "psychic" : {
+        "background" : "#F85888",
+        "border-color" : "#A13959"
+    },
+      "rock" : {
+        "background" : "#B8A038",
+        "border-color" : "#786824"
+    },
+      "ice" : {
+        "background" : "#98D8D8",
+        "border-color" : "#638D8D"
+    },
+      "bug" : {
+        "background" : "#A8B820",
+        "border-color" : "#6D7815"
+    },
+      "dragon" : {
+        "background" : "#7038F8",
+        "border-color" : "#4924A1"
+    },
+      "ghost" : {
+        "background" : "#705898",
+        "border-color" : "#493963"
+    },
+      "dark" : {
+        "background" : "#705848",
+        "border-color" : "#49392F"
+    },
+      "steel" : {
+        "background" : "#B8B8D0",
+        "border-color" : "#787887"
+    },
+      "fairy" : {
+        "background" : "#EE99AC",
+        "border-color" : "#9B6470"
+    }
+  }
+
   const Badge = styled.div`
-    background: ${(props) =>
-      props.inputType === "normal"
-        ? "#A8A878"
-        : props.inputType === "fire"
-        ? "#F08030"
-        : props.inputType === "fighting"
-        ? "#C03028"
-        : props.inputType === "water"
-        ? "#6890F0"
-        : props.inputType === "flying"
-        ? "#A890F0"
-        : props.inputType === "grass"
-        ? "#78C850"
-        : props.inputType === "poison"
-        ? "#A040A0"
-        : props.inputType === "electric"
-        ? "#F8D030"
-        : props.inputType === "ground"
-        ? "#E0C068"
-        : props.inputType === "psychic"
-        ? "#F85888"
-        : props.inputType === "rock"
-        ? "#B8A038"
-        :props.inputType === "ice"
-        ? "#98D8D8"
-        : props.inputType === "bug"
-        ? "#A8B820"
-        : props.inputType === "dragon"
-        ? "#7038F8"
-        : props.inputType === "ghost"
-        ? "#705898"
-        : props.inputType === "dark"
-        ? "#705848"
-        : props.inputType === "steel"
-        ? "#B8B8D0"
-        : "#EE99AC" //fairy type
+    background: ${(props) => 
+        typeColours[props.inputType]["background"]
     };
     border-color: ${(props) =>
-        props.inputType === "normal"
-          ? "#6D6D4E"
-          : props.inputType === "fire"
-          ? "#9C531F"
-          : props.inputType === "fighting"
-          ? "#7D1F1A"
-          : props.inputType === "water"
-          ? "#445E9C"
-          : props.inputType === "flying"
-          ? "#6D5E9C"
-          : props.inputType === "grass"
-          ? "#4E8234"
-          : props.inputType === "poison"
-          ? "#682A68"
-          : props.inputType === "electric"
-          ? "#A1871F"
-          : props.inputType === "ground"
-          ? "#927D44"
-          : props.inputType === "psychic"
-          ? "#A13959"
-          : props.inputType === "rock"
-          ? "#786824"
-          :props.inputType === "ice"
-          ? "#638D8D"
-          : props.inputType === "bug"
-          ? "#6D7815"
-          : props.inputType === "dragon"
-          ? "#4924A1"
-          : props.inputType === "ghost"
-          ? "#493963"
-          : props.inputType === "dark"
-          ? "#49392F"
-          : props.inputType === "steel"
-          ? "#787887"
-          : "#9B6470" //fairy type
+        typeColours[props.inputType]["border-color"]
     };
     outline: 0
   `;
