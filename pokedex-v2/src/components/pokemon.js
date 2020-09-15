@@ -8,7 +8,6 @@ import { determineAbility } from "../utils/determineAbility";
 import { filterMoveType } from "../utils/filterMoveType";
 import { capitaliseName } from "../utils/capitaliseName";
 import styled from "styled-components";
-import { propTypes } from "react-bootstrap/esm/Image";
 
 const useStyles = makeStyles(() => ({
   spinnerStyle: {
@@ -41,26 +40,6 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-// Background then Border
-// Normal A8A878 6D6D4E
-// Fire F08030 9C531F
-// Fighting C03028 7D1F1A
-// Water 6890F0 445E9C
-// Flying A890F0 6D5E9C
-// Grass 78C850 4E8234
-// Poison A040A0 682A68
-// Electric F8D030 A1871F
-// Ground E0C068 927D44
-// Psychic F85888 A13959
-// Rock B8A038 786824
-// Ice 98D8D8 638D8D
-// Bug  A8B820 6D7815
-// Dragon 7038F8 4924A1
-// Ghost 705898 493963
-// Dark 705848 49392F
-// Steel B8B8D0 787887
-// Fairy EE99AC 9B6470
-
 const Pokemon = (props) => {
   const { match, history } = props;
   const { params } = match;
@@ -69,88 +48,84 @@ const Pokemon = (props) => {
   const classes = useStyles();
 
   const typeColours = {
-      "normal" : {
-          "background" : "#A8A878",
-          "border-color" : "#6D6D4E"
-      },
-      "fire" : {
-        "background" : "#F08030",
-        "border-color" : "#9C531F"
+    normal: {
+      background: "#A8A878",
+      "border-color": "#6D6D4E",
     },
-      "fighting" : {
-        "background" : "#C03028",
-        "border-color" : "#7D1F1A"
+    fire: {
+      background: "#F08030",
+      "border-color": "#9C531F",
     },
-      "water" : {
-        "background" : "#6890F0",
-        "border-color" : "#445E9C"
+    fighting: {
+      background: "#C03028",
+      "border-color": "#7D1F1A",
     },
-      "flying" : {
-        "background" : "#A890F0",
-        "border-color" : "#6D5E9C"
+    water: {
+      background: "#6890F0",
+      "border-color": "#445E9C",
     },
-      "grass" : {
-        "background" : "#78C850",
-        "border-color" : "#4E8234"
+    flying: {
+      background: "#A890F0",
+      "border-color": "#6D5E9C",
     },
-      "poison" : {
-        "background" : "#A040A0",
-        "border-color" : "#682A68"
+    grass: {
+      background: "#78C850",
+      "border-color": "#4E8234",
     },
-      "electric" : {
-        "background" : "#F8D030",
-        "border-color" : "#A1871F"
+    poison: {
+      background: "#A040A0",
+      "border-color": "#682A68",
     },
-      "ground" : {
-        "background" : "#E0C068",
-        "border-color" : "#927D44"
+    electric: {
+      background: "#F8D030",
+      "border-color": "#A1871F",
     },
-      "psychic" : {
-        "background" : "#F85888",
-        "border-color" : "#A13959"
+    ground: {
+      background: "#E0C068",
+      "border-color": "#927D44",
     },
-      "rock" : {
-        "background" : "#B8A038",
-        "border-color" : "#786824"
+    psychic: {
+      background: "#F85888",
+      "border-color": "#A13959",
     },
-      "ice" : {
-        "background" : "#98D8D8",
-        "border-color" : "#638D8D"
+    rock: {
+      background: "#B8A038",
+      "border-color": "#786824",
     },
-      "bug" : {
-        "background" : "#A8B820",
-        "border-color" : "#6D7815"
+    ice: {
+      background: "#98D8D8",
+      "border-color": "#638D8D",
     },
-      "dragon" : {
-        "background" : "#7038F8",
-        "border-color" : "#4924A1"
+    bug: {
+      background: "#A8B820",
+      "border-color": "#6D7815",
     },
-      "ghost" : {
-        "background" : "#705898",
-        "border-color" : "#493963"
+    dragon: {
+      background: "#7038F8",
+      "border-color": "#4924A1",
     },
-      "dark" : {
-        "background" : "#705848",
-        "border-color" : "#49392F"
+    ghost: {
+      background: "#705898",
+      "border-color": "#493963",
     },
-      "steel" : {
-        "background" : "#B8B8D0",
-        "border-color" : "#787887"
+    dark: {
+      background: "#705848",
+      "border-color": "#49392F",
     },
-      "fairy" : {
-        "background" : "#EE99AC",
-        "border-color" : "#9B6470"
-    }
-  }
+    steel: {
+      background: "#B8B8D0",
+      "border-color": "#787887",
+    },
+    fairy: {
+      background: "#EE99AC",
+      "border-color": "#9B6470",
+    },
+  };
 
   const Badge = styled.div`
-    background: ${(props) => 
-        typeColours[props.inputType]["background"]
-    };
-    border-color: ${(props) =>
-        typeColours[props.inputType]["border-color"]
-    };
-    outline: 0
+    background: ${(props) => typeColours[props.inputType]["background"]};
+    border-color: ${(props) => typeColours[props.inputType]["border-color"]};
+    outline: 0;
   `;
 
   useEffect(() => {
@@ -167,6 +142,11 @@ const Pokemon = (props) => {
 
   const nextPreviousPokemon = (num) => {
     const { id } = pokemon;
+    if (num === -1) {
+      return 1;
+    } else if (num === 896) {
+      return 896;
+    }
     return id + num;
   };
 
@@ -200,8 +180,6 @@ const Pokemon = (props) => {
     items.sort(function (first, second) {
       return first[1] - second[1];
     });
-
-    console.log(types[0].type.name);
 
     return (
       <Container className="mt=2">
