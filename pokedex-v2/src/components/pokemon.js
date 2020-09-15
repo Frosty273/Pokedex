@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Typography, CircularProgress, Button, Badge } from "@material-ui/core";
+import { Typography, CircularProgress, Button } from "@material-ui/core";
 import axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
 import { Container, Row, Col, Card, ProgressBar } from "react-bootstrap";
@@ -30,11 +30,13 @@ const useStyles = makeStyles(() => ({
     },
   },
   types: {
-    backgroundColor: "lightblue",
-    borderRadius: "50%",
+    color: "white",
+    textAlign: "center",
+    borderRadius: "20px",
     paddingRight: "10px",
     paddingLeft: "10px",
     width: "80px",
+    marginBottom: "5px",
   },
 }));
 
@@ -73,7 +75,74 @@ const Pokemon = (props) => {
         ? "#F08030"
         : props.inputType === "fighting"
         ? "#C03028"
-        : "white"};
+        : props.inputType === "water"
+        ? "#6890F0"
+        : props.inputType === "flying"
+        ? "#A890F0"
+        : props.inputType === "grass"
+        ? "#78C850"
+        : props.inputType === "poison"
+        ? "#A040A0"
+        : props.inputType === "electric"
+        ? "#F8D030"
+        : props.inputType === "ground"
+        ? "#E0C068"
+        : props.inputType === "psychic"
+        ? "#F85888"
+        : props.inputType === "rock"
+        ? "#B8A038"
+        :props.inputType === "ice"
+        ? "#98D8D8"
+        : props.inputType === "bug"
+        ? "#A8B820"
+        : props.inputType === "dragon"
+        ? "#7038F8"
+        : props.inputType === "ghost"
+        ? "#705898"
+        : props.inputType === "dark"
+        ? "#705848"
+        : props.inputType === "steel"
+        ? "#B8B8D0"
+        : "#EE99AC" //fairy type
+    };
+    border-color: ${(props) =>
+        props.inputType === "normal"
+          ? "#6D6D4E"
+          : props.inputType === "fire"
+          ? "#9C531F"
+          : props.inputType === "fighting"
+          ? "#7D1F1A"
+          : props.inputType === "water"
+          ? "#445E9C"
+          : props.inputType === "flying"
+          ? "#6D5E9C"
+          : props.inputType === "grass"
+          ? "#4E8234"
+          : props.inputType === "poison"
+          ? "#682A68"
+          : props.inputType === "electric"
+          ? "#A1871F"
+          : props.inputType === "ground"
+          ? "#927D44"
+          : props.inputType === "psychic"
+          ? "#A13959"
+          : props.inputType === "rock"
+          ? "#786824"
+          :props.inputType === "ice"
+          ? "#638D8D"
+          : props.inputType === "bug"
+          ? "#6D7815"
+          : props.inputType === "dragon"
+          ? "#4924A1"
+          : props.inputType === "ghost"
+          ? "#493963"
+          : props.inputType === "dark"
+          ? "#49392F"
+          : props.inputType === "steel"
+          ? "#787887"
+          : "#9B6470" //fairy type
+    };
+    outline: 0
   `;
 
   useEffect(() => {
@@ -94,7 +163,6 @@ const Pokemon = (props) => {
   };
 
   const generatePokemonData = () => {
-    // const { name, id, height, weight, types, sprites, abilities, stats, moves } = pokemon;
     const {
       name,
       height,
