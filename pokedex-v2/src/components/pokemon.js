@@ -16,8 +16,11 @@ const useStyles = makeStyles(() => ({
     borderWidth: "1rem",
   },
   spinnerWrapperStyle: {
-    textAlign: "center",
-    marginTop: "50px",
+    // marginTop: "500px",
+    // alignItems: 'center'
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    width: '100%'
   },
   returnToPokedex: {
     align: "flex",
@@ -48,84 +51,88 @@ const Pokemon = (props) => {
   const classes = useStyles();
 
   const typeColours = {
-    normal: {
-      background: "#A8A878",
-      "border-color": "#6D6D4E",
+      "normal" : {
+          "background" : "#A8A878",
+          "border-color" : "#6D6D4E"
+      },
+      "fire" : {
+        "background" : "#F08030",
+        "border-color" : "#9C531F"
     },
-    fire: {
-      background: "#F08030",
-      "border-color": "#9C531F",
+      "fighting" : {
+        "background" : "#C03028",
+        "border-color" : "#7D1F1A"
     },
-    fighting: {
-      background: "#C03028",
-      "border-color": "#7D1F1A",
+      "water" : {
+        "background" : "#6890F0",
+        "border-color" : "#445E9C"
     },
-    water: {
-      background: "#6890F0",
-      "border-color": "#445E9C",
+      "flying" : {
+        "background" : "#A890F0",
+        "border-color" : "#6D5E9C"
     },
-    flying: {
-      background: "#A890F0",
-      "border-color": "#6D5E9C",
+      "grass" : {
+        "background" : "#78C850",
+        "border-color" : "#4E8234"
     },
-    grass: {
-      background: "#78C850",
-      "border-color": "#4E8234",
+      "poison" : {
+        "background" : "#A040A0",
+        "border-color" : "#682A68"
     },
-    poison: {
-      background: "#A040A0",
-      "border-color": "#682A68",
+      "electric" : {
+        "background" : "#F8D030",
+        "border-color" : "#A1871F"
     },
-    electric: {
-      background: "#F8D030",
-      "border-color": "#A1871F",
+      "ground" : {
+        "background" : "#E0C068",
+        "border-color" : "#927D44"
     },
-    ground: {
-      background: "#E0C068",
-      "border-color": "#927D44",
+      "psychic" : {
+        "background" : "#F85888",
+        "border-color" : "#A13959"
     },
-    psychic: {
-      background: "#F85888",
-      "border-color": "#A13959",
+      "rock" : {
+        "background" : "#B8A038",
+        "border-color" : "#786824"
     },
-    rock: {
-      background: "#B8A038",
-      "border-color": "#786824",
+      "ice" : {
+        "background" : "#98D8D8",
+        "border-color" : "#638D8D"
     },
-    ice: {
-      background: "#98D8D8",
-      "border-color": "#638D8D",
+      "bug" : {
+        "background" : "#A8B820",
+        "border-color" : "#6D7815"
     },
-    bug: {
-      background: "#A8B820",
-      "border-color": "#6D7815",
+      "dragon" : {
+        "background" : "#7038F8",
+        "border-color" : "#4924A1"
     },
-    dragon: {
-      background: "#7038F8",
-      "border-color": "#4924A1",
+      "ghost" : {
+        "background" : "#705898",
+        "border-color" : "#493963"
     },
-    ghost: {
-      background: "#705898",
-      "border-color": "#493963",
+      "dark" : {
+        "background" : "#705848",
+        "border-color" : "#49392F"
     },
-    dark: {
-      background: "#705848",
-      "border-color": "#49392F",
+      "steel" : {
+        "background" : "#B8B8D0",
+        "border-color" : "#787887"
     },
-    steel: {
-      background: "#B8B8D0",
-      "border-color": "#787887",
-    },
-    fairy: {
-      background: "#EE99AC",
-      "border-color": "#9B6470",
-    },
-  };
+      "fairy" : {
+        "background" : "#EE99AC",
+        "border-color" : "#9B6470"
+    }
+  }
 
   const Badge = styled.div`
-    background: ${(props) => typeColours[props.inputType]["background"]};
-    border-color: ${(props) => typeColours[props.inputType]["border-color"]};
-    outline: 0;
+    background: ${(props) => 
+        typeColours[props.inputType]["background"]
+    };
+    border-color: ${(props) =>
+        typeColours[props.inputType]["border-color"]
+    };
+    outline: 0
   `;
 
   useEffect(() => {
@@ -143,9 +150,9 @@ const Pokemon = (props) => {
   const nextPreviousPokemon = (num) => {
     const { id } = pokemon;
     if (num === -1) {
-      return 1;
+        return 1
     } else if (num === 896) {
-      return 896;
+        return 896
     }
     return id + num;
   };
@@ -331,8 +338,10 @@ const Pokemon = (props) => {
             Next Pokemon
           </Button>
         )}
+        <br></br>
+        {pokemon === undefined && <CircularProgress className={classes.spinnerWrapperStyle}/>}
       </center>
-      {pokemon === undefined && <CircularProgress />}
+      {pokemon === undefined && <CircularProgress className={classes.spinnerWrapperStyle}/>}
       {!!pokemon !== undefined && pokemon && generatePokemonData()}
       {pokemon === false && <Typography>Pokemon not found</Typography>}
     </div>
