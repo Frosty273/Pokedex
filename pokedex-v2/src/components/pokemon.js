@@ -18,9 +18,9 @@ const useStyles = makeStyles(() => ({
   spinnerWrapperStyle: {
     // marginTop: "500px",
     // alignItems: 'center'
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    width: '100%'
+    marginLeft: "auto",
+    marginRight: "auto",
+    width: "100%",
   },
   returnToPokedex: {
     align: "flex",
@@ -51,88 +51,84 @@ const Pokemon = (props) => {
   const classes = useStyles();
 
   const typeColours = {
-      "normal" : {
-          "background" : "#A8A878",
-          "border-color" : "#6D6D4E"
-      },
-      "fire" : {
-        "background" : "#F08030",
-        "border-color" : "#9C531F"
+    normal: {
+      background: "#A8A878",
+      "border-color": "#6D6D4E",
     },
-      "fighting" : {
-        "background" : "#C03028",
-        "border-color" : "#7D1F1A"
+    fire: {
+      background: "#F08030",
+      "border-color": "#9C531F",
     },
-      "water" : {
-        "background" : "#6890F0",
-        "border-color" : "#445E9C"
+    fighting: {
+      background: "#C03028",
+      "border-color": "#7D1F1A",
     },
-      "flying" : {
-        "background" : "#A890F0",
-        "border-color" : "#6D5E9C"
+    water: {
+      background: "#6890F0",
+      "border-color": "#445E9C",
     },
-      "grass" : {
-        "background" : "#78C850",
-        "border-color" : "#4E8234"
+    flying: {
+      background: "#A890F0",
+      "border-color": "#6D5E9C",
     },
-      "poison" : {
-        "background" : "#A040A0",
-        "border-color" : "#682A68"
+    grass: {
+      background: "#78C850",
+      "border-color": "#4E8234",
     },
-      "electric" : {
-        "background" : "#F8D030",
-        "border-color" : "#A1871F"
+    poison: {
+      background: "#A040A0",
+      "border-color": "#682A68",
     },
-      "ground" : {
-        "background" : "#E0C068",
-        "border-color" : "#927D44"
+    electric: {
+      background: "#F8D030",
+      "border-color": "#A1871F",
     },
-      "psychic" : {
-        "background" : "#F85888",
-        "border-color" : "#A13959"
+    ground: {
+      background: "#E0C068",
+      "border-color": "#927D44",
     },
-      "rock" : {
-        "background" : "#B8A038",
-        "border-color" : "#786824"
+    psychic: {
+      background: "#F85888",
+      "border-color": "#A13959",
     },
-      "ice" : {
-        "background" : "#98D8D8",
-        "border-color" : "#638D8D"
+    rock: {
+      background: "#B8A038",
+      "border-color": "#786824",
     },
-      "bug" : {
-        "background" : "#A8B820",
-        "border-color" : "#6D7815"
+    ice: {
+      background: "#98D8D8",
+      "border-color": "#638D8D",
     },
-      "dragon" : {
-        "background" : "#7038F8",
-        "border-color" : "#4924A1"
+    bug: {
+      background: "#A8B820",
+      "border-color": "#6D7815",
     },
-      "ghost" : {
-        "background" : "#705898",
-        "border-color" : "#493963"
+    dragon: {
+      background: "#7038F8",
+      "border-color": "#4924A1",
     },
-      "dark" : {
-        "background" : "#705848",
-        "border-color" : "#49392F"
+    ghost: {
+      background: "#705898",
+      "border-color": "#493963",
     },
-      "steel" : {
-        "background" : "#B8B8D0",
-        "border-color" : "#787887"
+    dark: {
+      background: "#705848",
+      "border-color": "#49392F",
     },
-      "fairy" : {
-        "background" : "#EE99AC",
-        "border-color" : "#9B6470"
-    }
-  }
+    steel: {
+      background: "#B8B8D0",
+      "border-color": "#787887",
+    },
+    fairy: {
+      background: "#EE99AC",
+      "border-color": "#9B6470",
+    },
+  };
 
   const Badge = styled.div`
-    background: ${(props) => 
-        typeColours[props.inputType]["background"]
-    };
-    border-color: ${(props) =>
-        typeColours[props.inputType]["border-color"]
-    };
-    outline: 0
+    background: ${(props) => typeColours[props.inputType]["background"]};
+    border-color: ${(props) => typeColours[props.inputType]["border-color"]};
+    outline: 0;
   `;
 
   useEffect(() => {
@@ -150,9 +146,9 @@ const Pokemon = (props) => {
   const nextPreviousPokemon = (num) => {
     const { id } = pokemon;
     if (id + num === 0) {
-        return 1
+      return 1;
     } else if (id + num === 894) {
-        return 893
+      return 893;
     }
     return id + num;
   };
@@ -201,33 +197,45 @@ const Pokemon = (props) => {
                 <img src={back_shiny} alt={name} />
               </Card.Header>
               <Card.Body>
-                <h5>Abilities</h5>
-                {abilities.map((ability, key) => (
-                  <div key={key}>
-                    <span>
-                      {determineAbility(
-                        capitaliseName(ability.ability.name),
-                        key,
-                        abilities.length
-                      )}
-                    </span>
-                  </div>
-                ))}
-                <br />
-                <h5>Type(s)</h5>
-                {types.map((type, key) => (
-                  <div key={key}>
-                    <Badge className={classes.types} inputType={type.type.name}>
-                      {capitaliseName(type.type.name)}
-                    </Badge>
-                  </div>
-                ))}
-                <br />
-                <h5>Height</h5>
-                {height / 10} m
-                <br />
-                <h5>Weight</h5>
-                {weight / 10} kg
+                <Row>
+                  <Col>
+                    <h5>Abilities</h5>
+                    {abilities.map((ability, key) => (
+                      <div key={key}>
+                        <span>
+                          {determineAbility(
+                            capitaliseName(ability.ability.name),
+                            key,
+                            abilities.length
+                          )}
+                        </span>
+                      </div>
+                    ))}
+                  </Col>
+                  <Col>
+                    <h5>Type(s)</h5>
+                    {types.map((type, key) => (
+                      <div key={key}>
+                        <Badge
+                          className={classes.types}
+                          inputType={type.type.name}
+                        >
+                          {capitaliseName(type.type.name)}
+                        </Badge>
+                      </div>
+                    ))}
+                  </Col>
+                </Row>
+                <Row>
+                  <Col>
+                    <h5>Height</h5>
+                    {height / 10} m
+                  </Col>
+                  <Col>
+                    <h5>Weight</h5>
+                    {weight / 10} kg
+                  </Col>
+                </Row>
               </Card.Body>
             </Card>
           </Col>
@@ -339,7 +347,9 @@ const Pokemon = (props) => {
           </Button>
         )}
         <br></br>
-        {pokemon === undefined && <CircularProgress className={classes.spinnerWrapperStyle}/>}
+        {pokemon === undefined && (
+          <CircularProgress className={classes.spinnerWrapperStyle} />
+        )}
       </center>
       {!!pokemon !== undefined && pokemon && generatePokemonData()}
       {pokemon === false && <Typography>Pokemon not found</Typography>}
