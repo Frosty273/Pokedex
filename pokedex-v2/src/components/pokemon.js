@@ -149,10 +149,10 @@ const Pokemon = (props) => {
 
   const nextPreviousPokemon = (num) => {
     const { id } = pokemon;
-    if (num === -1) {
+    if (id + num === 0) {
         return 1
-    } else if (num === 896) {
-        return 896
+    } else if (id + num === 894) {
+        return 893
     }
     return id + num;
   };
@@ -341,7 +341,6 @@ const Pokemon = (props) => {
         <br></br>
         {pokemon === undefined && <CircularProgress className={classes.spinnerWrapperStyle}/>}
       </center>
-      {pokemon === undefined && <CircularProgress className={classes.spinnerWrapperStyle}/>}
       {!!pokemon !== undefined && pokemon && generatePokemonData()}
       {pokemon === false && <Typography>Pokemon not found</Typography>}
     </div>

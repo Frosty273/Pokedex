@@ -81,7 +81,7 @@ const Pokedex = (props) => {
 
   useEffect(() => {
     axios
-      .get(`https://pokeapi.co/api/v2/pokemon?limit=896`)
+      .get(`https://pokeapi.co/api/v2/pokemon?limit=893`)
       .then(function (response) {
         const { data } = response;
         const { results } = data;
