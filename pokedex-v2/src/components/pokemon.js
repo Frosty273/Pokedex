@@ -8,6 +8,7 @@ import { determineAbility } from "../utils/determineAbility";
 import { filterMoveType } from "../utils/filterMoveType";
 import { capitaliseName } from "../utils/capitaliseName";
 import styled from "styled-components";
+import { displayEggGroup } from "../utils/displayEggGroup";
 
 const useStyles = makeStyles(() => ({
   spinnerStyle: {
@@ -48,6 +49,7 @@ const Pokemon = (props) => {
   const { params } = match;
   const { pokemonId } = params;
   const [pokemon, setPokemon] = React.useState(undefined);
+  const [pokemonSpecies, setPokemonSpecies] = React.useState(undefined);
   const classes = useStyles();
 
   const typeColours = {
@@ -141,6 +143,15 @@ const Pokemon = (props) => {
       .catch(function (error) {
         setPokemon(false);
       });
+    axios
+      .get(`https://pokeapi.co/api/v2/pokemon-species/${pokemonId}/`)
+      .then(function (response) {
+        const { data } = response;
+        setPokemonSpecies(data);
+      })
+      .catch(function (error) {
+        setPokemonSpecies(false);
+      });
   }, [pokemonId]);
 
   const nextPreviousPokemon = (num) => {
@@ -152,6 +163,22 @@ const Pokemon = (props) => {
     }
     return id + num;
   };
+
+  // const getEggGroup = async (name, eggGroups) => {
+  //   const groups = Promise.all(
+  //     (await eggGroups).results.map(async (group) => {
+  //       const response = await fetch(group.url).then((res) => res.json());
+  //       const n = response.pokemon_species.some((pokemon) => {
+  //         if (name === pokemon.name) {
+  //           return true;
+  //         }
+  //         return false;
+  //       });
+  //       return n ? group.name : n;
+  //     })
+  //   );
+  //   return groups.then((res) => res.filter((n) => n));
+  // };
 
   const generatePokemonData = () => {
     const {
@@ -165,6 +192,31 @@ const Pokemon = (props) => {
       moves,
     } = pokemon;
     const { front_default, front_shiny, back_default, back_shiny } = sprites;
+
+    // const a = fetch("https://pokeapi.co/api/v2/egg-group").then((res) =>
+    //   res.json()
+    // );
+
+    // getEggGroup(name, a).then((res) => console.log("Groups:", res));
+
+    console.log(pokemonSpecies.flavor_text_entries);
+    let description = "";
+    pokemonSpecies.flavor_text_entries.some((text) => {
+      if (text.language.name === "en") {
+        description = text.flavor_text;
+        return;
+      }
+    });
+
+    console.log(pokemonSpecies);
+
+    //Chances of pokemon being female is provided in eigths
+    const femaleRate = pokemonSpecies.gender_rate;
+    const genderRatioFemale = 12.5 * femaleRate;
+    const genderRatioMale = 12.5 * (8 - femaleRate);
+
+    // const catchRate = Math.round((100 / 255) * pokemonSpecies.capture_rate);
+    // const hatchSteps = 255 * (pokemonSpecies.hatch_counter + 1);
 
     let move_learn_level = {};
     moves.forEach((move) => {
@@ -190,7 +242,7 @@ const Pokemon = (props) => {
           <Col xs={12} md={6}>
             <Card>
               <Card.Header>
-                <h3>{capitaliseName(name)}</h3>
+                <h2>{capitaliseName(name)}</h2>
                 <img src={front_default} alt={name} />
                 <img src={front_shiny} alt={name} />
                 <img src={back_default} alt={name} />
@@ -236,12 +288,24 @@ const Pokemon = (props) => {
                     {weight / 10} kg
                   </Col>
                 </Row>
+                <Row>
+                  <Col>
+                    <h5>Egg Group(s)</h5>
+                    {displayEggGroup(pokemonSpecies.egg_groups)}
+                  </Col>
+                  <Col>
+                    <h5>Gender Ratio</h5>
+                    {genderRatioMale}% male, {genderRatioFemale}% female
+                  </Col>
+                </Row>
               </Card.Body>
             </Card>
           </Col>
           <Col xs={12} md={6}>
             <Card>
               <Card.Body>
+                <h4>Description</h4>
+                {description}
                 <h4>Base Stats</h4>
                 {stats.map((stat, key) => (
                   <div key={key}>
