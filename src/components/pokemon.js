@@ -199,7 +199,6 @@ const Pokemon = (props) => {
 
     // getEggGroup(name, a).then((res) => console.log("Groups:", res));
 
-    console.log(pokemonSpecies.flavor_text_entries);
     let description = "";
     pokemonSpecies.flavor_text_entries.some((text) => {
       if (text.language.name === "en") {
@@ -207,8 +206,6 @@ const Pokemon = (props) => {
         return;
       }
     });
-
-    console.log(pokemonSpecies);
 
     //Chances of pokemon being female is provided in eigths
     const femaleRate = pokemonSpecies.gender_rate;
