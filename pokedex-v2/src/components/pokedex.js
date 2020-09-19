@@ -140,7 +140,7 @@ const Pokedex = (props) => {
                   onChange={() => setDarkMode(!darkMode)}
                 />
                 <Typography className={classes.darkModeToggleText}>
-                  Toggle theme
+                  Dark Theme
                 </Typography>
               </div>
             </Toolbar>
