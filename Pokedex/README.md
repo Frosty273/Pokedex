@@ -22,11 +22,7 @@ This implementation is fully supported and tested on Windows 10.
 
 2. Change to the directory containing the repository
 
-    `cd PokedexApp`
-    
-    `cd pokedex` for version 1
-    
-    `cd pokedex-v2` for version 2
+    `cd pokedexApp`
 
 3. Install the dependencies
 
@@ -36,14 +32,4 @@ This implementation is fully supported and tested on Windows 10.
 
     `npm start`
 
-![Version 1](/Figure1.PNG)
-Fig 1. Searching a Pokemon in version 1
-
-
-![Version 2](/Figure2.PNG)
-Fig 2. Searching a Pokemon in version 2
-
-## API Note
-
-The api as of 08/09/2020 doesn't currently contain any reference to the pokemon sprite from geneeration 8 onwards (Pokemon number 808 and onwards) so all placeholder sprite are left blank. This is a feature, not a bug.
-
+![Website example](/Figure1.PNG)
