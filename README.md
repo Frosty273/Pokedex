@@ -23,10 +23,6 @@ This implementation is fully supported and tested on Windows 10.
 2. Change to the directory containing the repository
 
     `cd PokedexApp`
-    
-    `cd pokedex` for version 1
-    
-    `cd pokedex-v2` for version 2
 
 3. Install the dependencies
 
@@ -35,13 +31,6 @@ This implementation is fully supported and tested on Windows 10.
 4. Start the game locally
 
     `npm start`
-
-![Version 1](/Figure1.PNG)
-Fig 1. Searching a Pokemon in version 1
-
-
-![Version 2](/Figure2.PNG)
-Fig 2. Searching a Pokemon in version 2
 
 ## API Note
 
