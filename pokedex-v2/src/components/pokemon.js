@@ -389,7 +389,9 @@ const Pokemon = (props) => {
         {pokemon !== undefined && (
           <Button
             className={classes.returnToPokedex}
-            onClick={() => history.push("/" + nextPreviousPokemon(-1))}
+            onClick={() =>
+              history.push("/PokedexApp/" + nextPreviousPokemon(-1))
+            }
           >
             Previous Pokemon
           </Button>
@@ -397,7 +399,7 @@ const Pokemon = (props) => {
         {pokemon !== undefined && (
           <Button
             className={classes.returnToPokedex}
-            onClick={() => history.push("/")}
+            onClick={() => history.push("/PokedexApp")}
           >
             Back to Pokedex
           </Button>
@@ -405,7 +407,9 @@ const Pokemon = (props) => {
         {pokemon !== undefined && (
           <Button
             className={classes.returnToPokedex}
-            onClick={() => history.push("/" + nextPreviousPokemon(1))}
+            onClick={() =>
+              history.push("/PokedexApp/" + nextPreviousPokemon(1))
+            }
           >
             Next Pokemon
           </Button>

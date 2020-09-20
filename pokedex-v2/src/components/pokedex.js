@@ -104,7 +104,7 @@ const Pokedex = (props) => {
 
     return (
       <Grid item xs={12} sm={3} key={pokemonId}>
-        <Card onClick={() => history.push(`/${pokemonId}`)}>
+        <Card onClick={() => history.push(`/PokedexApp/${pokemonId}`)}>
           <CardMedia
             className={classes.cardMedia}
             image={sprite}
