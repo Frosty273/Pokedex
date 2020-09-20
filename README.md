@@ -45,11 +45,11 @@ Fig 2. Searching a Pokemon in version 2
 
 
 ![Version 3](/Figure3.PNG)
-Fig 2. Dark mode in version 2
+Fig 3. Dark mode in version 2
 
 
 ![Version 4](/Figure4.PNG)
-Fig 2. Pokemon stat display
+Fig 4. Pokemon stat display
 
 ## API Note
 
