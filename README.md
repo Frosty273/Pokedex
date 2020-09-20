@@ -24,7 +24,7 @@ This implementation is fully supported and tested on Windows 10.
 
     `cd PokedexApp`
     
-    `cd pokedex` for version 1
+    `cd Pokedex` for version 1
     
     `cd pokedex-v2` for version 2
 
@@ -43,7 +43,14 @@ Fig 1. Searching a Pokemon in version 1
 ![Version 2](/Figure2.PNG)
 Fig 2. Searching a Pokemon in version 2
 
+
+![Version 3](/Figure3.PNG)
+Fig 2. Dark mode in version 2
+
+
+![Version 4](/Figure4.PNG)
+Fig 2. Pokemon stat display
+
 ## API Note
 
 The api as of 08/09/2020 doesn't currently contain any reference to the pokemon sprite from geneeration 8 onwards (Pokemon number 808 and onwards) so all placeholder sprite are left blank. This is a feature, not a bug.
-
