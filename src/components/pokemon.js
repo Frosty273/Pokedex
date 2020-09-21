@@ -17,6 +17,8 @@ const useStyles = makeStyles(() => ({
     borderWidth: "1rem",
   },
   spinnerWrapperStyle: {
+    // marginTop: "500px",
+    // alignItems: 'center'
     marginLeft: "auto",
     marginRight: "auto",
     width: "100%",
@@ -197,12 +199,16 @@ const Pokemon = (props) => {
 
     // getEggGroup(name, a).then((res) => console.log("Groups:", res));
 
+    console.log(pokemonSpecies.flavor_text_entries);
     let description = "";
-    pokemonSpecies.flavor_text_entries.forEach((text) => {
+    pokemonSpecies.flavor_text_entries.some((text) => {
       if (text.language.name === "en") {
         description = text.flavor_text;
+        return;
       }
     });
+
+    console.log(pokemonSpecies);
 
     //Chances of pokemon being female is provided in eigths
     const femaleRate = pokemonSpecies.gender_rate;
@@ -383,9 +389,7 @@ const Pokemon = (props) => {
         {pokemon !== undefined && (
           <Button
             className={classes.returnToPokedex}
-            onClick={() =>
-              history.push("/PokedexApp/" + nextPreviousPokemon(-1))
-            }
+            onClick={() => history.push("/" + nextPreviousPokemon(-1))}
           >
             Previous Pokemon
           </Button>
@@ -393,7 +397,7 @@ const Pokemon = (props) => {
         {pokemon !== undefined && (
           <Button
             className={classes.returnToPokedex}
-            onClick={() => history.push("/PokedexApp")}
+            onClick={() => history.push("/")}
           >
             Back to Pokedex
           </Button>
@@ -401,9 +405,7 @@ const Pokemon = (props) => {
         {pokemon !== undefined && (
           <Button
             className={classes.returnToPokedex}
-            onClick={() =>
-              history.push("/PokedexApp/" + nextPreviousPokemon(1))
-            }
+            onClick={() => history.push("/" + nextPreviousPokemon(1))}
           >
             Next Pokemon
           </Button>
